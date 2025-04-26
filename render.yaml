@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: perspective-api-backend
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PERSPECTIVE_API_KEY
+        sync: false  # You will set the actual value in the dashboard
