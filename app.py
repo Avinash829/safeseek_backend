@@ -23,11 +23,11 @@ def analyze_text():
             "languages": ["en"],
             "requestedAttributes": {"TOXICITY": {}},
         }
-        api_response = requests.post(
+        model_response = requests.post(
             f"{TOXIC_MODEL_URL}?key={TOXIC_MODEL}", json=payload
         )
-        api_data = api_response.json()
-        toxicity_score = api_data["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
+        model_data = model_response.json()
+        toxicity_score = model_data["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
         return jsonify({"toxicityScore": toxicity_score})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
