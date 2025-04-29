@@ -6,9 +6,8 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# Read API key from environment variable
-PERSPECTIVE_API_KEY = os.getenv("PERSPECTIVE_API_KEY")
-PERSPECTIVE_API_URL = "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze"
+TOXIC_MODEL = os.getenv("TOXIC_MODEL_KEY")
+TOXIC_MODEL_URL = "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze"
 
 @app.route("/analyze-text", methods=["POST"])
 def analyze_text():
@@ -25,7 +24,7 @@ def analyze_text():
             "requestedAttributes": {"TOXICITY": {}},
         }
         api_response = requests.post(
-            f"{PERSPECTIVE_API_URL}?key={PERSPECTIVE_API_KEY}", json=payload
+            f"{TOXIC_MODEL_URL}?key={TOXIC_MODEL}", json=payload
         )
         api_data = api_response.json()
         toxicity_score = api_data["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
